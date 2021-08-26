@@ -1,0 +1,61 @@
+version: "3.8"
+
+services:
+  node.js:
+    # image: node:alpine
+    container_name: Node.js
+    restart: always
+    build:
+      context: ./Docker/Dockerfiles/node.js
+      dockerfile: Dockerfile
+    volumes:
+      - ./app/node.js:/app/src
+    command: tail -F anything
+
+  php:
+    # image: php:8.0-apache
+    container_name: PHP-Apache
+    restart: always
+    build:
+      context: ./Docker/Dockerfiles/apache
+      dockerfile: Dockerfile
+    ports:
+      - 81:80
+    volumes:
+      # Serve app folder to the server
+      - ./app/php:/var/www/html/
+
+  mysql:
+    image: mysql:latest
+    container_name: MySQL
+    restart: always
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./Docker/mysql/data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ""
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+
+  phpmyadmin:
+    image: phpmyadmin
+    container_name: phpMyAdmin
+    restart: always
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: MySQL
+      PMA_USER: root
+      PMA_PASSWORD: ""
+    depends_on:
+      - MySQL
+
+  # git:
+  #   image: alpine
+  #   container_name: Git
+  #   build:
+  #     context: ./Docker/Dockerfiles/git
+  #     dockerfile: Dockerfile
+  #   command: tail -F anything
+  #   volumes:
+  #     - ./app:/app
