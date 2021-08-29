@@ -1,1 +1,1 @@
-This folder is mounted. MySQL Data goes in this directory.
+This folder is mounted to a container. MySQL data will be stored in this directory.
