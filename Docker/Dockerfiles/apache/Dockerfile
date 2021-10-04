@@ -13,4 +13,7 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install exif \
     && docker-php-ext-install gettext \
     && docker-php-ext-install mysqli \
-    && docker-php-ext-install pdo_mysql \
+    && docker-php-ext-install pdo_mysql
+
+# Install Composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
