@@ -8,6 +8,9 @@ services:
     build:
       context: ./Docker/Dockerfiles/node.js
       dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+      - 5000:5000
     volumes:
       - ./app/node.js:/app/src
     command: tail -F anything
@@ -20,7 +23,7 @@ services:
       context: ./Docker/Dockerfiles/apache
       dockerfile: Dockerfile
     ports:
-      - 81:80
+      - 80:80
     volumes:
       # Serve app folder to the server
       - ./app/php:/var/www/html/
@@ -31,7 +34,7 @@ services:
     container_name: MySQL
     restart: always
     ports:
-      - "3307:3306"
+      - "3306:3306"
     volumes:
       - ./Docker/mysql/data:/var/lib/mysql
     environment:
@@ -43,7 +46,7 @@ services:
     container_name: phpMyAdmin
     restart: always
     ports:
-      - "8081:80"
+      - "8080:80"
     environment:
       PMA_HOST: MySQL
       PMA_USER: root
