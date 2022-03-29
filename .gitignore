@@ -2,3 +2,6 @@ Docker/mysql
 
 app/node.js/*
 app/php/*
+
+# This line should be below the .gitignore file. This preserves the folder structure.
+!*.md
