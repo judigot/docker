@@ -1,3 +1,3 @@
 # Node.js Projects
 
-Add Node.js projects here
+Add Node.js projects in this folder

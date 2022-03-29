@@ -1,7 +1,10 @@
+# Ignore mysql volume mounted
 Docker/mysql
 
+# Ignore all project files
 app/node.js/*
 app/php/*
 
-# This line should be below the .gitignore file. This preserves the folder structure.
+# This line should be below the .gitignore file
+# This line preserves the folder structure (allows an empty folder to be uploaded)
 !*.md

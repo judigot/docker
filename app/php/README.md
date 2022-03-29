@@ -1,3 +1,3 @@
 # PHP Projects
 
-Add PHP projects here
+Add PHP projects in this folder
