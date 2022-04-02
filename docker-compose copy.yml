@@ -1,0 +1,94 @@
+version: "3.8"
+
+services:
+  # node.js:
+  #   # image: node:alpine
+  #   container_name: Node.js
+  #   restart: always
+  #   build:
+  #     context: ./Docker/Dockerfiles/node.js
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - 3000:3000
+  #     - 5000:5000
+  #   volumes:
+  #     - ./app/node.js:/app
+  #   tty: true # Keep the container "always running". Prevent <Container> exited with code 0 error
+
+  php:
+    # image: php:8.0-apache
+    container_name: PHP-Apache
+    restart: always
+    build:
+      context: ./Docker/Dockerfiles/apache
+      dockerfile: Dockerfile
+    ports:
+      - 80:80
+    volumes:
+      # Serve app folder to the server
+      - ./app/php:/var/www/html/
+      - ./Docker/Dockerfiles/apache/php/overrides.ini:/usr/local/etc/php/conf.d/overrides.ini
+
+  mysql:
+    image: mysql:latest
+    container_name: MySQL
+    restart: always
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./Docker/mysql/data:/var/lib/mysql
+      # - mysql:/var/lib/mysql // *see Issues.txt
+    environment:
+      MYSQL_ROOT_PASSWORD: ""
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    # command: --default-authentication-plugin=mysql_native_password
+
+  postgres:
+    image: postgres:alpine
+    container_name: PostgreSQL
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./Docker/postgres/data:/var/lib/postgresql/data
+      # - postgres:/var/lib/postgresql/data *see Issues.txt
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: "123"
+
+  adminer:
+    image: adminer
+    container_name: Adminer
+    restart: always
+    ports:
+      - 8080:8080
+    depends_on:
+      - MySQL
+      - PostgreSQL
+
+  phpmyadmin:
+    image: phpmyadmin
+    container_name: phpMyAdmin
+    restart: always
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: MySQL
+      PMA_USER: root
+      PMA_PASSWORD: ""
+    depends_on:
+      - MySQL
+
+volumes:
+  mysql:
+  postgres:
+
+    # git:
+    #   image: alpine
+    #   container_name: Git
+    #   build:
+    #     context: ./Docker/Dockerfiles/git
+    #     dockerfile: Dockerfile
+    #   command: tail -F anything
+    #   volumes:
+    #     - ./app:/app
