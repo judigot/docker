@@ -36,8 +36,8 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - ./Docker/mysql/data:/var/lib/mysql
-      # - mysql:/var/lib/mysql // *see Issues.txt
+      # - ./Docker/mysql/data:/var/lib/mysql
+      - mysql:/var/lib/mysql # Linux is case sensitive, so table name cases must match!
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: "no"
       MYSQL_ROOT_PASSWORD: "123"
@@ -49,8 +49,8 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - ./Docker/postgres/data:/var/lib/postgresql/data
-      # - postgres:/var/lib/postgresql/data *see Issues.txt
+      # - ./Docker/postgres/data:/var/lib/postgresql/data
+      - postgres:/var/lib/postgresql/data # Linux is case sensitive, so table name cases must match!
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: "123"
