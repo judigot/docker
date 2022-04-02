@@ -13,7 +13,7 @@ services:
       - 5000:5000
     volumes:
       - ./app/node.js:/app
-    command: tail -F anything
+    tty: true # Keep the container "always running". Prevent <Container> exited with code 0 error
 
   php:
     # image: php:8.0-apache
@@ -53,7 +53,6 @@ services:
       PMA_PASSWORD: ""
     depends_on:
       - MySQL
-
   # git:
   #   image: alpine
   #   container_name: Git
