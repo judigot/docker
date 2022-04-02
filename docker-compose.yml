@@ -12,7 +12,7 @@ services:
       - 3000:3000
       - 5000:5000
     volumes:
-      - ./app/node.js:/app/src
+      - ./app/node.js:/app
     command: tail -F anything
 
   php:
