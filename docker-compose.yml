@@ -1,19 +1,19 @@
 version: "3.8"
 
 services:
-  node.js:
-    # image: node:alpine
-    container_name: Node.js
-    restart: always
-    build:
-      context: ./Docker/Dockerfiles/node.js
-      dockerfile: Dockerfile
-    ports:
-      - 3000:3000
-      - 5000:5000
-    volumes:
-      - ./app/node.js:/app
-    tty: true # Keep the container "always running". Prevent <Container> exited with code 0 error
+  # node.js:
+  #   # image: node:alpine
+  #   container_name: Node.js
+  #   restart: always
+  #   build:
+  #     context: ./Docker/Dockerfiles/node.js
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - 3000:3000
+  #     - 5000:5000
+  #   volumes:
+  #     - ./app/node.js:/app
+  #   tty: true # Keep the container "always running". Prevent <Container> exited with code 0 error
 
   php:
     # image: php:8.0-apache
@@ -37,28 +37,57 @@ services:
       - "3306:3306"
     volumes:
       - ./Docker/mysql/data:/var/lib/mysql
+      # - mysql:/var/lib/mysql // *see Issues.txt
     environment:
-      MYSQL_ROOT_PASSWORD: ""
-      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_ALLOW_EMPTY_PASSWORD: "no"
+      MYSQL_ROOT_PASSWORD: "123"
+
+  postgres:
+    image: postgres:alpine
+    container_name: PostgreSQL
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./Docker/postgres/data:/var/lib/postgresql/data
+      # - postgres:/var/lib/postgresql/data *see Issues.txt
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: "123"
+
+  adminer:
+    image: adminer
+    container_name: Adminer
+    restart: always
+    ports:
+      - 8080:8080
+    depends_on:
+      - MySQL
+      - PostgreSQL
 
   phpmyadmin:
     image: phpmyadmin
     container_name: phpMyAdmin
     restart: always
     ports:
-      - "8080:80"
+      - "8081:80"
     environment:
       PMA_HOST: MySQL
       PMA_USER: root
-      PMA_PASSWORD: ""
+      PMA_PASSWORD: "123"
     depends_on:
       - MySQL
-  # git:
-  #   image: alpine
-  #   container_name: Git
-  #   build:
-  #     context: ./Docker/Dockerfiles/git
-  #     dockerfile: Dockerfile
-  #   command: tail -F anything
-  #   volumes:
-  #     - ./app:/app
+
+volumes:
+  mysql:
+  postgres:
+
+    # git:
+    #   image: alpine
+    #   container_name: Git
+    #   build:
+    #     context: ./Docker/Dockerfiles/git
+    #     dockerfile: Dockerfile
+    #   command: tail -F anything
+    #   volumes:
+    #     - ./app:/app
