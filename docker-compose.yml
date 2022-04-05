@@ -37,7 +37,7 @@ services:
       - "3306:3306"
     volumes:
       # - ./Docker/mysql/data:/var/lib/mysql
-      - mysql:/var/lib/mysql # Linux is case sensitive, so table name cases must match!
+      - mysql-data:/var/lib/mysql # Linux is case sensitive, so table name cases must match!
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: "no"
       MYSQL_ROOT_PASSWORD: "123"
@@ -50,7 +50,7 @@ services:
       - "5432:5432"
     volumes:
       # - ./Docker/postgres/data:/var/lib/postgresql/data
-      - postgres:/var/lib/postgresql/data # Linux is case sensitive, so table name cases must match!
+      - postgres-data:/var/lib/postgresql/data # Linux is case sensitive, so table name cases must match!
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: "123"
@@ -79,8 +79,8 @@ services:
       - MySQL
 
 volumes:
-  mysql:
-  postgres:
+  mysql-data:
+  postgres-data:
 
     # git:
     #   image: alpine
