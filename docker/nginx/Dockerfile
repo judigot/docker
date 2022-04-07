@@ -20,5 +20,6 @@ RUN apt update && apt install -y software-properties-common && \
     # Install PHP and PHP Extensions
     php8.1 \
     php8.1-fpm
-CMD ["nginx", "-g", "daemon off;"]
-# CMD /etc/init.d/php7.0-fpm restart && nginx -g "daemon off;"
+
+CMD service php8.1-fpm start && \
+    nginx -g "daemon off;"

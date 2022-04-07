@@ -15,33 +15,34 @@ services:
   #     - ./app/node.js:/app
   #   tty: true # Keep the container "always running". Prevent <Container> exited with code 0 error
 
-  # ubuntu:
-  #   tty: true
-  #   container_name: Ubuntu
-  #   restart: always
-  #   build:
-  #     context: ./docker/nginx
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - 80:80
-  #     - 3000:3000
-  #   volumes:
-  #     # Serve app folder to the server
-  #     - ./app/php:/var/www/html
-  #     - ./docker/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
-
-  php:
-    container_name: PHP-Apache
+  ubuntu:
+    tty: true
+    container_name: Ubuntu
     restart: always
     build:
-      context: ./docker/apache
+      context: ./docker/nginx
       dockerfile: Dockerfile
     ports:
       - 80:80
+      - 3000:3000
     volumes:
       # Serve app folder to the server
-      - ./app/php:/var/www/html/
-      - ./docker/apache/php/overrides.ini:/usr/local/etc/php/conf.d/overrides.ini
+      - ./app/php:/var/www/html
+      - ./docker/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
+      # - ./docker/apache/php/overrides.ini:/usr/local/etc/php/conf.d/overrides.ini
+
+  # php:
+  #   container_name: PHP-Apache
+  #   restart: always
+  #   build:
+  #     context: ./docker/apache
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - 80:80
+  #   volumes:
+  #     # Serve app folder to the server
+  #     - ./app/php:/var/www/html/
+  #     - ./docker/apache/php/overrides.ini:/usr/local/etc/php/conf.d/overrides.ini
 
   mysql:
     image: mysql:latest
