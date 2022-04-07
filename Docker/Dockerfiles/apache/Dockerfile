@@ -1,6 +1,6 @@
 FROM php:8.0-apache
 
-RUN apt-get update && apt-get install -y \
+RUN apt update && apt install -y \
     # Install Git
     # git \
     \
