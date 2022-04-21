@@ -19,7 +19,11 @@ RUN apt update && apt install -y software-properties-common && \
     \
     # Install PHP and PHP Extensions
     php8.1 \
-    php8.1-fpm
+    php8.1-fpm \
+    \
+    # Install MySQL
+    mysql-server
 
 CMD service php8.1-fpm start && \
+    service mysql start && \
     nginx -g "daemon off;"

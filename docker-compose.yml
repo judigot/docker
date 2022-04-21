@@ -25,6 +25,7 @@ services:
     ports:
       - 81:81
       - 3000:3000
+      - 3306:3306
     volumes:
       # Serve app folder to the server
       - ./app/php:/var/www/html
