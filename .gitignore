@@ -4,6 +4,7 @@ Docker/mysql
 
 # Ignore all project files
 app/node.js/*
+app/java/*
 app/php/*
 
 # This line should be below the .gitignore file
