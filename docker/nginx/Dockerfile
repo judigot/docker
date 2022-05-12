@@ -15,6 +15,7 @@ RUN apt update && apt install -y software-properties-common && \
     apt install --no-install-recommends -y \
     # apt install -y \
     \
+    # Install NGINX
     nginx \
     \
     # Install PHP and PHP Extensions
