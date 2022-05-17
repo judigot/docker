@@ -42,61 +42,77 @@ services:
     ports:
       - 8080:8080
       - 5000:5000
-    # ubuntu:
-    #   tty: true
-    #   container_name: Ubuntu
-    #   restart: always
+      - 3000:3000
+
+  # ubuntu:
+  #   tty: true
+  #   container_name: Ubuntu
+  #   restart: always
+  #   build:
+  #     context: ./docker/nginx
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - 81:81
+  #     - 3000:3000
+  #     - 3306:3306
+  #   volumes:
+  #     # Serve app folder to the server
+  #     - ./app/php:/var/www/html
+  #     - ./docker/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
+  #     - ./docker/php/overrides.ini:/etc/php/8.1/fpm/conf.d/overrides.ini
+
+  # php:
+  #   container_name: PHP-Apache
+  #   restart: always
+  #   build:
+  #     context: ./docker/apache
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - 80:80
+  #   volumes:
+  #     # Serve app folder to the server
+  #     - ./app/php:/var/www/html/
+  #     - ./docker/php/overrides.ini:/usr/local/etc/php/conf.d/overrides.ini
+
+  mysql:
+    image: mysql:latest
+    container_name: MySQL
+    restart: always
+    ports:
+      - "3306:3306"
+    volumes:
+      # - ./data/mysql:/var/lib/mysql
+      - mysql-data:/var/lib/mysql # Linux is case sensitive, so table name cases must match!
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "${MYSQL_ALLOW_EMPTY_PASSWORD}"
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+
+  postgres:
+    image: postgres:alpine
+    container_name: PostgreSQL
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      # - ./data/postgres:/var/lib/postgresql/data
+      - postgres-data:/var/lib/postgresql/data # Linux is case sensitive, so table name cases must match!
+    environment:
+      POSTGRES_USER: "${POSTGRES_USER}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+
+volumes:
+  mysql-data:
+  postgres-data:
+
+    # git:
+    #   image: alpine
+    #   container_name: Git
     #   build:
-    #     context: ./docker/nginx
+    #     context: ./docker/git
     #     dockerfile: Dockerfile
-    #   ports:
-    #     - 81:81
-    #     - 3000:3000
-    #     - 3306:3306
+    #   command: tail -F anything
     #   volumes:
-    #     # Serve app folder to the server
-    #     - ./app/php:/var/www/html
-    #     - ./docker/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
-    #     - ./docker/php/overrides.ini:/etc/php/8.1/fpm/conf.d/overrides.ini
-
-    # php:
-    #   container_name: PHP-Apache
-    #   restart: always
-    #   build:
-    #     context: ./docker/apache
-    #     dockerfile: Dockerfile
-    #   ports:
-    #     - 80:80
-    #   volumes:
-    #     # Serve app folder to the server
-    #     - ./app/php:/var/www/html/
-    #     - ./docker/php/overrides.ini:/usr/local/etc/php/conf.d/overrides.ini
-
-    # mysql:
-    #   image: mysql:latest
-    #   container_name: MySQL
-    #   restart: always
-    #   ports:
-    #     - "3306:3306"
-    #   volumes:
-    #     # - ./data/mysql:/var/lib/mysql
-    #     - mysql-data:/var/lib/mysql # Linux is case sensitive, so table name cases must match!
-    #   environment:
-    #     MYSQL_ALLOW_EMPTY_PASSWORD: "no"
-    #     MYSQL_ROOT_PASSWORD: "123"
-
-    # postgres:
-    #   image: postgres:alpine
-    #   container_name: PostgreSQL
-    #   restart: always
-    #   ports:
-    #     - "5432:5432"
-    #   volumes:
-    #     # - ./data/postgres:/var/lib/postgresql/data
-    #     - postgres-data:/var/lib/postgresql/data # Linux is case sensitive, so table name cases must match!
-    #   environment:
-    #     POSTGRES_USER: root
-    #     POSTGRES_PASSWORD: "123"
+    #     - ./app:/app
 
     # adminer:
     #   image: adminer
@@ -115,22 +131,8 @@ services:
     #   ports:
     #     - "8081:80"
     #   environment:
-    #     PMA_HOST: MySQL
-    #     PMA_USER: root
-    #     PMA_PASSWORD: "123"
+    #     PMA_HOST: "${PMA_HOST}"
+    #     PMA_USER: "${PMA_USER}"
+    #     PMA_PASSWORD: "${PMA_PASSWORD}"
     #   depends_on:
     #     - MySQL
-
-    # volumes:
-    #   mysql-data:
-    #   postgres-data:
-
-    # git:
-    #   image: alpine
-    #   container_name: Git
-    #   build:
-    #     context: ./docker/git
-    #     dockerfile: Dockerfile
-    #   command: tail -F anything
-    #   volumes:
-    #     - ./app:/app
