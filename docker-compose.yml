@@ -34,8 +34,9 @@ services:
   # mvn spring-boot:run
   #====================
 
+  # 2.347
   jenkins:
-    image: jenkins/jenkins:lts-alpine-jdk11
+    image: jenkins/jenkins:jdk11
     container_name: Jenkins
     restart: always
     ports:
@@ -71,31 +72,31 @@ services:
   #     - ./app/php:/var/www/html/
   #     - ./docker/php/overrides.ini:/usr/local/etc/php/conf.d/overrides.ini
 
-  mysql:
-    image: mysql:latest
-    container_name: MySQL
-    restart: always
-    ports:
-      - "3306:3306"
-    volumes:
-      # - ./data/mysql:/var/lib/mysql
-      - mysql-data:/var/lib/mysql # Linux is case sensitive, so table name cases must match!
-    environment:
-      MYSQL_ALLOW_EMPTY_PASSWORD: "no"
-      MYSQL_ROOT_PASSWORD: "123"
+  # mysql:
+  #   image: mysql:latest
+  #   container_name: MySQL
+  #   restart: always
+  #   ports:
+  #     - "3306:3306"
+  #   volumes:
+  #     # - ./data/mysql:/var/lib/mysql
+  #     - mysql-data:/var/lib/mysql # Linux is case sensitive, so table name cases must match!
+  #   environment:
+  #     MYSQL_ALLOW_EMPTY_PASSWORD: "no"
+  #     MYSQL_ROOT_PASSWORD: "123"
 
-  postgres:
-    image: postgres:alpine
-    container_name: PostgreSQL
-    restart: always
-    ports:
-      - "5432:5432"
-    volumes:
-      # - ./data/postgres:/var/lib/postgresql/data
-      - postgres-data:/var/lib/postgresql/data # Linux is case sensitive, so table name cases must match!
-    environment:
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: "123"
+  # postgres:
+  #   image: postgres:alpine
+  #   container_name: PostgreSQL
+  #   restart: always
+  #   ports:
+  #     - "5432:5432"
+  #   volumes:
+  #     # - ./data/postgres:/var/lib/postgresql/data
+  #     - postgres-data:/var/lib/postgresql/data # Linux is case sensitive, so table name cases must match!
+  #   environment:
+  #     POSTGRES_USER: root
+  #     POSTGRES_PASSWORD: "123"
 
   # adminer:
   #   image: adminer
@@ -120,9 +121,9 @@ services:
   #   depends_on:
   #     - MySQL
 
-volumes:
-  mysql-data:
-  postgres-data:
+# volumes:
+#   mysql-data:
+#   postgres-data:
 
     # git:
     #   image: alpine
