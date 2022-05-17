@@ -34,12 +34,12 @@ services:
   # mvn spring-boot:run
   #====================
 
-  # jenkins:
-  #   image: jenkinsci/jenkins:lts-alpine
-  #   container_name: Jenkins
-  #   restart: always
-  #   ports:
-  #     - 8080:8080
+  jenkins:
+    image: jenkins/jenkins:lts-alpine-jdk11
+    container_name: Jenkins
+    restart: always
+    ports:
+      - 8080:8080
 
   # ubuntu:
   #   tty: true
