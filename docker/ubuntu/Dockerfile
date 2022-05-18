@@ -15,15 +15,16 @@ RUN apt update && apt install -y software-properties-common && \
     apt install --no-install-recommends -y \
     # apt install -y \
     \
+    #==========MySQL==========#
+    mysql-server \
+    #==========MySQL==========#
+    \
     # Install NGINX
     nginx \
     \
     # Install PHP and PHP Extensions
     php8.1 \
-    php8.1-fpm \
-    \
-    # Install MySQL
-    mysql-server
+    php8.1-fpm
 
 CMD service php8.1-fpm start && \
     service mysql start && \
