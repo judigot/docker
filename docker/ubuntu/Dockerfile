@@ -18,6 +18,12 @@ RUN apt update && apt install -y software-properties-common && \
     #==========MySQL==========#
     mysql-server \
     #==========MySQL==========#
+    #==========Jenkins==========#
+    # mysql-server \
+    #==========Jenkins==========#
+    #==========Node.js/NVM==========#
+    # mysql-server \
+    #==========Node.js/NVM==========#
     \
     # Install NGINX
     nginx \
