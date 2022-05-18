@@ -8,9 +8,9 @@ FROM ubuntu
 
 RUN su - && apt update && \
     \
-    apt install -y software-properties-common && \
+    # apt install -y software-properties-common && \
     # Needed to install latest PHP versions
-    add-apt-repository ppa:ondrej/php && \
+    # add-apt-repository ppa:ondrej/php && \
     \
     # Remove command line interactions
     DEBIAN_FRONTEND=noninteractive \
@@ -66,6 +66,12 @@ RUN su - && apt update && \
     \
     && \
     echo "Finished"
+
+RUN NODE_VERSION=17.7.0 \
+    && \
+    . ~/.nvm/nvm.sh; \
+    nvm install $NODE_VERSION; \
+    nvm use --delete-prefix $NODE_VERSION;
 
 # CMD service php8.1-fpm start && \
 #     service mysql start && \
