@@ -6,7 +6,9 @@ FROM ubuntu
 
 # "su -" - enables su-mode to install sudo
 
-RUN su - && apt update && apt install -y software-properties-common && \
+RUN su - && apt update && \
+    \
+    apt install -y software-properties-common && \
     # Needed to install latest PHP versions
     add-apt-repository ppa:ondrej/php && \
     \
