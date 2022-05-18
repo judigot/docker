@@ -29,7 +29,7 @@ RUN su - && apt update && \
     \
     \
     #==========MySQL==========#
-    mysql-server \
+    # mysql-server \
     #==========MySQL==========#
     \
     \
@@ -41,19 +41,20 @@ RUN su - && apt update && \
     \
     \
     #==========NGINX==========#
-    nginx \
+    # nginx \
     #==========NGINX==========#
     \
     \
     \
     #==========Install PHP & PHP Extensions==========#
-    php8.1 \
-    php8.1-fpm && \
+    # php8.1 \
+    # php8.1-fpm \
     #==========Install PHP & PHP Extensions==========#
     \
     \
     \
     #==========Node.js/NVM==========#
+    # && \
     # NODE_VERSION=17.7.0 \
     # curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash \
     # export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")" \
@@ -63,8 +64,9 @@ RUN su - && apt update && \
     \
     \
     \
+    && \
     echo "Finished"
 
-CMD service php8.1-fpm start && \
-    service mysql start && \
-    nginx -g "daemon off;"
+# CMD service php8.1-fpm start && \
+#     service mysql start && \
+#     nginx -g "daemon off;"
