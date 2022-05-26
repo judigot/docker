@@ -80,9 +80,6 @@ RUN apt install -y \
     #==========Java==========#
     openjdk-11-jre-headless \
     #==========Java==========#
-    \
-    \
-    \
     && \
     echo "..."
 
