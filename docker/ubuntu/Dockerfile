@@ -32,32 +32,32 @@ RUN su - && apt update && \
     \
     \
     #==========Git==========#
-    # git \
+    git \
     #==========Git==========#
     \
     \
     \
     #==========MySQL==========#
-    # mysql-server \
+    mysql-server \
     #==========MySQL==========#
     \
     \
     \
-    #==========Jenkins==========#
-    # mysql-server \
-    #==========Jenkins==========#
+    #==========Apache==========#
+    apache2 \
+    #==========Apache==========#
     \
     \
     \
-    #==========NGINX==========#
-    # nginx \
-    #==========NGINX==========#
+    #==========Nginx==========#
+    nginx \
+    #==========Nginx==========#
     \
     \
     \
     #==========Install PHP & PHP Extensions==========#
-    # php8.1 \
-    # php8.1-fpm \
+    php8.1 \
+    php8.1-fpm \
     #==========Install PHP & PHP Extensions==========#
     \
     \
@@ -84,34 +84,36 @@ RUN curl -fsSL https://pkg.jenkins.io/debian/jenkins.io.key | sudo tee /usr/shar
     echo "..."
 
 #==========Node.js/NVM==========#
-# RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-# ENV NODE_VERSION 17.7.0
-# ENV NVM_DIR ~/.nvm
-# RUN \
-#     #=====OPTION 1=====#
-#     # NVM_DIR=~/.nvm \
-#     # && \
-#     # . $NVM_DIR/nvm.sh; \
-#     #=====OPTION 1=====#
-#     \
-#     #=====OPTION 2=====#
-#     . ~/.bashrc; \
-#     #=====OPTION 1=====#
-#     nvm install $NODE_VERSION; \
-#     nvm use $NODE_VERSION;
-# ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
-# ENV PATH $NVM_DIR:$NVM_DIR/v$NODE_VERSION/node_modules/npm/bin:$PATH
-# ENV NVM_HOME $NVM_DIR
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+ENV NODE_VERSION 17.7.0
+ENV NVM_DIR ~/.nvm
+RUN \
+    #=====OPTION 1=====#
+    # NVM_DIR=~/.nvm \
+    # && \
+    # . $NVM_DIR/nvm.sh; \
+    #=====OPTION 1=====#
+    \
+    #=====OPTION 2=====#
+    . ~/.bashrc; \
+    #=====OPTION 1=====#
+    nvm install $NODE_VERSION; \
+    nvm use $NODE_VERSION;
+ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
+ENV PATH $NVM_DIR:$NVM_DIR/v$NODE_VERSION/node_modules/npm/bin:$PATH
+ENV NVM_HOME $NVM_DIR
 #==========Node.js/NVM==========#
 
 # Start services
 CMD \
-    # service php8.1-fpm start \
-    # && \
+    service mysql start \
+    && \
+    service php8.1-fpm start \
+    && \
+    service apache2 start \
+    && \
+    nginx -g "daemon off;" \
+    && \
     jenkins \
-    # && \
-    # service mysql start \
-    # && \
-    # nginx -g "daemon off;" \
     && \
     sleep infinity
