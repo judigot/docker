@@ -3,12 +3,11 @@ Docker/postgres
 Docker/mysql
 
 # Ignore all project files
+app/*
 # app/node.js/*
 # app/java/*
 # app/php/*
 # app/python/*
-
-app/*
 
 # This line should be below the .gitignore file
 # This line preserves the folder structure (allows an empty folder to be uploaded)
