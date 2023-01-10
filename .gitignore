@@ -8,6 +8,7 @@ app/*
 # app/java/*
 # app/php/*
 # app/python/*
+# app/java/*
 
 # This line should be below the .gitignore file
 # This line preserves the folder structure (allows an empty folder to be uploaded)
