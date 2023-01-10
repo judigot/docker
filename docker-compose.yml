@@ -10,9 +10,8 @@ services:
     restart: always
     ports:
       - 8000:8000
-    # volumes:
-    #   - ./app/python:/app
-    tty: true # Keep the container "always running". Prevent <Container> exited with code 0 error
+    volumes:
+      - ./app/python:/usr/app/src
   # jenkins:
   #   # 2.347
   #   image: jenkins/jenkins:jdk11
