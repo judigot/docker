@@ -1,4 +1,3 @@
-# Test
 # Ignore mysql volume mounted
 Docker/postgres
 Docker/mysql
