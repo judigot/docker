@@ -2,17 +2,15 @@ FROM ubuntu
 
 # -y to answer "Yes" to all promts
 
-# "software-properties-common" - provides some useful scripts e.g. add-apt-repository
-
 # "su -" - enables su-mode to install sudo
 
 # "sudo -i" - login as "root"
 
-RUN su - && apt update && \
+RUN echo "Initializing Ubuntu..." && \
+    su - && apt update && \
     \
+    # "software-properties-common" - provides some useful scripts e.g. add-apt-repository
     apt install -y software-properties-common && \
-    # Needed to install latest PHP versions
-    add-apt-repository ppa:ondrej/php && \
     \
     # Remove command line interactions
     DEBIAN_FRONTEND=noninteractive \
@@ -20,60 +18,94 @@ RUN su - && apt update && \
     # Skips upgrades
     apt install --no-install-recommends -y \
     # apt install -y \
-    \
-    \
-    \
-    #==========Linux==========#
+    #==========Packages==========#
     curl \
     sudo \
     wget \
-    #==========Linux==========#
-    \
-    \
-    \
-    #==========Git==========#
+    #==========Packages==========#
+    && \
+    echo "..."
+
+
+#==========Git==========#
+RUN echo "Installing Git..." && \
+    # Remove command line interactions
+    DEBIAN_FRONTEND=noninteractive \
+    apt install -y \
+    #=====Packages=====#
     git \
-    #==========Git==========#
-    \
-    \
-    \
-    #==========MySQL==========#
+    #=====Packages=====#
+    && \
+    echo "..."
+#==========Git==========#
+
+#==========MySQL==========#
+RUN echo "Installing MySQL..." && \
+    # Remove command line interactions
+    DEBIAN_FRONTEND=noninteractive \
+    apt install -y \
+    #=====Packages=====#
     mysql-server \
-    #==========MySQL==========#
-    \
-    \
-    \
-    #==========Apache==========#
+    #=====Packages=====#
+    && \
+    echo "..."
+#==========Git==========#
+
+#==========Apache==========#
+RUN echo "Installing Apache..." && \
+    # Remove command line interactions
+    DEBIAN_FRONTEND=noninteractive \
+    apt install -y \
+    #=====Packages=====#
     apache2 \
-    #==========Apache==========#
-    \
-    \
-    \
-    #==========Nginx==========#
+    #=====Packages=====#
+    && \
+    echo "..."
+#==========Apache==========#
+
+#==========Nginx==========#
+RUN echo "Installing Nginx..." && \
+    # Remove command line interactions
+    DEBIAN_FRONTEND=noninteractive \
+    apt install -y \
+    #=====Packages=====#
     nginx \
-    #==========Nginx==========#
+    #=====Packages=====#
+    && \
+    echo "..."
+#==========Nginx==========#
+
+#==========Install PHP & PHP Extensions==========#
+RUN echo "Installing PHP..." && \
+    # Needed to install latest PHP versions
+    add-apt-repository ppa:ondrej/php && \
     \
-    \
-    \
-    #==========Install PHP & PHP Extensions==========#
+    # Remove command line interactions
+    DEBIAN_FRONTEND=noninteractive \
+    apt install -y \
+    #=====Packages=====#
     php8.1 \
     php8.1-fpm \
-    #==========Install PHP & PHP Extensions==========#
-    \
-    \
-    \
+    #=====Packages=====#
     && \
     echo "..."
+#==========Install PHP & PHP Extensions==========#
 
-RUN apt install -y \
-    #==========Java==========#
+#==========Java==========#
+RUN echo "Installing Java..." && \
+    # Remove command line interactions
+    DEBIAN_FRONTEND=noninteractive \
+    apt install -y \
+    #=====Packages=====#
     openjdk-11-jre-headless \
-    #==========Java==========#
+    #=====Packages=====#
     && \
     echo "..."
+#==========Java==========#
 
-# Jenkins needs Git to pull repositories. Install Git first
-RUN curl -fsSL https://pkg.jenkins.io/debian/jenkins.io.key | sudo tee /usr/share/keyrings/jenkins-keyring.asc > /dev/null && \
+# Jenkins needs Java to run and Git to pull repositories. Install Git first
+RUN echo "Installing Jenkins..." && \
+    curl -fsSL https://pkg.jenkins.io/debian/jenkins.io.key | sudo tee /usr/share/keyrings/jenkins-keyring.asc > /dev/null && \
     echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian binary/ | sudo tee /etc/apt/sources.list.d/jenkins.list > /dev/null && \
     apt update && \
     apt install -y \
@@ -83,8 +115,8 @@ RUN curl -fsSL https://pkg.jenkins.io/debian/jenkins.io.key | sudo tee /usr/shar
     && \
     echo "..."
 
-#==========Node.js/NVM==========#
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+#==========NVM/Node.js==========#
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
 ENV NODE_VERSION 17.7.0
 ENV NVM_DIR ~/.nvm
 RUN \
@@ -102,18 +134,40 @@ RUN \
 ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
 ENV PATH $NVM_DIR:$NVM_DIR/v$NODE_VERSION/node_modules/npm/bin:$PATH
 ENV NVM_HOME $NVM_DIR
-#==========Node.js/NVM==========#
+#==========NVM/Node.js==========#
 
 # Start services
 CMD \
-    service mysql start \
+    #=====Start MySQL=====#
+    usermod -d /var/lib/mysql/ mysql && service mysql start \
     && \
+    #=====Start MySQL=====#
+    \
+    #=====Start NVM/Node.js=====#
+    export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")" && \
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" \
+    && \
+    #=====Start NVM/Node.js=====#
+    \
+    #=====Start PHP=====#
     service php8.1-fpm start \
     && \
-    service apache2 start \
-    && \
-    nginx -g "daemon off;" \
-    && \
-    jenkins \
-    && \
+    #=====Start PHP=====#
+    \
+    #=====Start Apache=====#
+    # service apache2 start \
+    # && \
+    #=====Start Apache=====#
+    \
+    #=====Start Nginx=====#
+    # nginx -g "daemon off;" \
+    # && \
+    #=====Start Nginx=====#
+    \
+    #=====Start Jenkins=====#
+    # jenkins \
+    # && \
+    #=====Start Jenkins=====#
+    \
+    #=====Keep Container Running=====#
     sleep infinity
