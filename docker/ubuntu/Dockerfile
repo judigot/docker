@@ -116,9 +116,8 @@ RUN echo "Installing Jenkins..." && \
     echo "..."
 
 #==========NVM/Node.js==========#
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
 ENV NODE_VERSION 17.7.0
-ENV NVM_DIR ~/.nvm
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash;
 RUN \
     #=====OPTION 1=====#
     # NVM_DIR=~/.nvm \
@@ -127,10 +126,14 @@ RUN \
     #=====OPTION 1=====#
     \
     #=====OPTION 2=====#
-    . ~/.bashrc; \
-    #=====OPTION 1=====#
-    nvm install $NODE_VERSION; \
-    nvm use $NODE_VERSION;
+    # . ~/.bashrc; \
+    #=====OPTION 2=====#
+    \
+    #=====OPTION 3=====#
+    export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")";\
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh";\
+    #=====OPTION 3=====#
+    nvm install $NODE_VERSION;
 ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
 ENV PATH $NVM_DIR:$NVM_DIR/v$NODE_VERSION/node_modules/npm/bin:$PATH
 ENV NVM_HOME $NVM_DIR
@@ -142,12 +145,6 @@ CMD \
     usermod -d /var/lib/mysql/ mysql && service mysql start \
     && \
     #=====Start MySQL=====#
-    \
-    #=====Start NVM/Node.js=====#
-    export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")" && \
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" \
-    && \
-    #=====Start NVM/Node.js=====#
     \
     #=====Start PHP=====#
     service php8.1-fpm start \
