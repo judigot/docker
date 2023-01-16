@@ -115,28 +115,39 @@ RUN echo "Installing Jenkins..." && \
     && \
     echo "..."
 
+# #==========NVM/Node.js==========#
+# ENV NODE_VERSION 17.7.0
+# RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash;
+# RUN \
+#     #=====OPTION 1=====#
+#     # NVM_DIR=~/.nvm \
+#     # && \
+#     # . $NVM_DIR/nvm.sh; \
+#     #=====OPTION 1=====#
+#     \
+#     #=====OPTION 2=====#
+#     # . ~/.bashrc; \
+#     #=====OPTION 2=====#
+#     \
+#     #=====OPTION 3=====#
+#     export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")";\
+#     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh";\
+#     #=====OPTION 3=====#
+#     nvm install $NODE_VERSION;
+# ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
+# ENV PATH $NVM_DIR:$NVM_DIR/v$NODE_VERSION/node_modules/npm/bin:$PATH
+# ENV NVM_HOME $NVM_DIR
+# #==========NVM/Node.js==========#
+
 #==========NVM/Node.js==========#
-ENV NODE_VERSION 17.7.0
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash;
+ENV NODE_VERSION 17.7.0
 RUN \
-    #=====OPTION 1=====#
-    # NVM_DIR=~/.nvm \
-    # && \
-    # . $NVM_DIR/nvm.sh; \
-    #=====OPTION 1=====#
-    \
-    #=====OPTION 2=====#
-    # . ~/.bashrc; \
-    #=====OPTION 2=====#
-    \
     #=====OPTION 3=====#
     export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")";\
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh";\
     #=====OPTION 3=====#
     nvm install $NODE_VERSION;
-ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
-ENV PATH $NVM_DIR:$NVM_DIR/v$NODE_VERSION/node_modules/npm/bin:$PATH
-ENV NVM_HOME $NVM_DIR
 #==========NVM/Node.js==========#
 
 # Start services
