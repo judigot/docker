@@ -152,6 +152,11 @@ RUN \
 
 # Start services
 CMD \
+    #=====Start PostgreSQL=====#
+    # service postgresql start \
+    # && \
+    #=====Start PostgreSQL=====#
+    \
     #=====Start MySQL=====#
     usermod -d /var/lib/mysql/ mysql && service mysql start \
     && \
