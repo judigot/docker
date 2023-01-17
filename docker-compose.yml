@@ -34,7 +34,7 @@ services:
       context: ./docker/ubuntu
       dockerfile: Dockerfile
     ports:
-      - 81:81
+      - 81:81 # phpMyAdmin
       - 80:80 # PHP
       - 8080:8080 # Java
       - 3000:3000 # Node.js
@@ -49,11 +49,9 @@ services:
     # # Escape environmental variables (e.g. NVM_DIR) in the command using an extra $
     # command:
     #   - |
-    #     export NVM_DIR="$$([ -z "$${XDG_CONFIG_HOME-}" ] && printf %s "$${HOME}/.nvm" || printf %s "$${XDG_CONFIG_HOME}/nvm")"
-    #     [ -s "$$NVM_DIR/nvm.sh" ] && \. "$$NVM_DIR/nvm.sh"
-    #     echo NVM version: $(nvm -v)
-    #     echo Node.js version: $(node -v)
-    #     sleep infinity
+    #     echo "Command 1"
+    #     echo "Command 2"
+    #     echo "Command 3"
 
 volumes:
   mysql-data:
@@ -118,7 +116,7 @@ volumes:
     #   container_name: phpMyAdmin
     #   restart: always
     #   ports:
-    #     - "8081:80"
+    #     - 8081:80
     #   environment:
     #     PMA_HOST: "${PMA_HOST}"
     #     PMA_USER: "${PMA_USER}"
@@ -157,7 +155,7 @@ volumes:
     #     container_name: PostgreSQL
     #     restart: always
     #     ports:
-    #       - "5432:5432"
+    #       - 5432:5432
     #     volumes:
     #       # - ./data/postgres:/var/lib/postgresql/data
     #       - postgres-data:/var/lib/postgresql/data # Linux is case sensitive, so table name cases should be consistent!
