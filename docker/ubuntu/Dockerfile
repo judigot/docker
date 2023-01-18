@@ -26,7 +26,6 @@ RUN echo "Initializing Ubuntu..." && \
     && \
     echo "..."
 
-
 #==========Git==========#
 RUN echo "Installing Git..." && \
     # Remove command line interactions
@@ -39,17 +38,17 @@ RUN echo "Installing Git..." && \
     echo "..."
 #==========Git==========#
 
-#==========MySQL==========#
-RUN echo "Installing MySQL..." && \
-    # Remove command line interactions
-    DEBIAN_FRONTEND=noninteractive \
-    apt install -y \
-    #=====Packages=====#
-    mysql-server \
-    #=====Packages=====#
-    && \
-    echo "..."
-#==========Git==========#
+# #==========MySQL==========#
+# RUN echo "Installing MySQL..." && \
+#     # Remove command line interactions
+#     DEBIAN_FRONTEND=noninteractive \
+#     apt install -y \
+#     #=====Packages=====#
+#     mysql-server \
+#     #=====Packages=====#
+#     && \
+#     echo "..."
+# #==========Git==========#
 
 # #==========Apache==========#
 # RUN echo "Installing Apache..." && \
@@ -140,14 +139,24 @@ RUN echo "Installing MySQL..." && \
 # #==========NVM/Node.js==========#
 
 #==========NVM/Node.js==========#
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash;
-ENV NODE_VERSION 17.7.0
-RUN \
-    #=====OPTION 3=====#
-    export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")";\
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh";\
-    #=====OPTION 3=====#
-    nvm install $NODE_VERSION;
+
+# If NODE_VERSION environment variable is present/set, NVM automatically detects it and will proceed to download the version,
+# else, you need to run the ff:
+#     export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")";\
+#     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh";
+#     nvm install node;
+
+# ENV NODE_VERSION node
+
+RUN echo "Installing NVM & Node.js...";\
+    export NODE_VERSION=node;\
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash;
+# RUN echo "Installing Node.js..." && \
+#     #=====OPTION 3=====#
+#     export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")";\
+#     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh";
+#=====OPTION 3=====#
+# nvm install node;
 #==========NVM/Node.js==========#
 
 # Start services
@@ -158,8 +167,8 @@ CMD \
     #=====Start PostgreSQL=====#
     \
     #=====Start MySQL=====#
-    usermod -d /var/lib/mysql/ mysql && service mysql start \
-    && \
+    # usermod -d /var/lib/mysql/ mysql && service mysql start \
+    # && \
     #=====Start MySQL=====#
     \
     #=====Start PHP=====#
