@@ -38,17 +38,20 @@ RUN echo "Installing Git..." && \
     echo "..."
 #==========Git==========#
 
-# #==========MySQL==========#
-# RUN echo "Installing MySQL..." && \
-#     # Remove command line interactions
-#     DEBIAN_FRONTEND=noninteractive \
-#     apt install -y \
-#     #=====Packages=====#
-#     mysql-server \
-#     #=====Packages=====#
-#     && \
-#     echo "..."
-# #==========Git==========#
+#==========MySQL==========#
+RUN echo "Installing MySQL..." && \
+    # Remove command line interactions
+    DEBIAN_FRONTEND=noninteractive \
+    apt install -y \
+    #=====Packages=====#
+    mysql-server \
+    #=====Packages=====#
+    && \
+    usermod -d /var/lib/mysql/ mysql && service mysql start; \
+    echo "..."
+EXPOSE 3306/tcp
+EXPOSE 33060/tcp
+#==========Git==========#
 
 # #==========Apache==========#
 # RUN echo "Installing Apache..." && \
