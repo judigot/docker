@@ -51,69 +51,69 @@ RUN echo "Installing MySQL..." && \
     echo "..."
 #==========Git==========#
 
-#==========Apache==========#
-RUN echo "Installing Apache..." && \
-    # Remove command line interactions
-    DEBIAN_FRONTEND=noninteractive \
-    apt install -y \
-    #=====Packages=====#
-    apache2 \
-    #=====Packages=====#
-    && \
-    echo "..."
-#==========Apache==========#
+# #==========Apache==========#
+# RUN echo "Installing Apache..." && \
+#     # Remove command line interactions
+#     DEBIAN_FRONTEND=noninteractive \
+#     apt install -y \
+#     #=====Packages=====#
+#     apache2 \
+#     #=====Packages=====#
+#     && \
+#     echo "..."
+# #==========Apache==========#
 
-#==========Nginx==========#
-RUN echo "Installing Nginx..." && \
-    # Remove command line interactions
-    DEBIAN_FRONTEND=noninteractive \
-    apt install -y \
-    #=====Packages=====#
-    nginx \
-    #=====Packages=====#
-    && \
-    echo "..."
-#==========Nginx==========#
+# #==========Nginx==========#
+# RUN echo "Installing Nginx..." && \
+#     # Remove command line interactions
+#     DEBIAN_FRONTEND=noninteractive \
+#     apt install -y \
+#     #=====Packages=====#
+#     nginx \
+#     #=====Packages=====#
+#     && \
+#     echo "..."
+# #==========Nginx==========#
 
-#==========Install PHP & PHP Extensions==========#
-RUN echo "Installing PHP..." && \
-    # Needed to install latest PHP versions
-    add-apt-repository ppa:ondrej/php && \
-    \
-    # Remove command line interactions
-    DEBIAN_FRONTEND=noninteractive \
-    apt install -y \
-    #=====Packages=====#
-    php8.1 \
-    php8.1-fpm \
-    #=====Packages=====#
-    && \
-    echo "..."
-#==========Install PHP & PHP Extensions==========#
+# #==========Install PHP & PHP Extensions==========#
+# RUN echo "Installing PHP..." && \
+#     # Needed to install latest PHP versions
+#     add-apt-repository ppa:ondrej/php && \
+#     \
+#     # Remove command line interactions
+#     DEBIAN_FRONTEND=noninteractive \
+#     apt install -y \
+#     #=====Packages=====#
+#     php8.1 \
+#     php8.1-fpm \
+#     #=====Packages=====#
+#     && \
+#     echo "..."
+# #==========Install PHP & PHP Extensions==========#
 
-#==========Java==========#
-RUN echo "Installing Java..." && \
-    # Remove command line interactions
-    DEBIAN_FRONTEND=noninteractive \
-    apt install -y \
-    #=====Packages=====#
-    openjdk-11-jre-headless \
-    #=====Packages=====#
-    && \
-    echo "..."
-#==========Java==========#
+# #==========Java==========#
+# RUN echo "Installing Java..." && \
+#     # Remove command line interactions
+#     DEBIAN_FRONTEND=noninteractive \
+#     apt install -y \
+#     #=====Packages=====#
+#     openjdk-11-jre-headless \
+#     #=====Packages=====#
+#     && \
+#     echo "..."
+# #==========Java==========#
 
-# Jenkins needs Java to run and Git to pull repositories. Install Git first
-RUN echo "Installing Jenkins..." && \
-    curl -fsSL https://pkg.jenkins.io/debian/jenkins.io.key | sudo tee /usr/share/keyrings/jenkins-keyring.asc > /dev/null && \
-    echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian binary/ | sudo tee /etc/apt/sources.list.d/jenkins.list > /dev/null && \
-    apt update && \
-    apt install -y \
-    #==========Jenkins==========#
-    jenkins \
-    #==========Jenkins==========#
-    && \
-    echo "..."
+# # Jenkins needs Java to run and Git to pull repositories. Install Git first
+# RUN echo "Installing Jenkins..." && \
+#     curl -fsSL https://pkg.jenkins.io/debian/jenkins.io.key | sudo tee /usr/share/keyrings/jenkins-keyring.asc > /dev/null && \
+#     echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian binary/ | sudo tee /etc/apt/sources.list.d/jenkins.list > /dev/null && \
+#     apt update && \
+#     apt install -y \
+#     #==========Jenkins==========#
+#     jenkins \
+#     #==========Jenkins==========#
+#     && \
+#     echo "..."
 
 # #==========NVM/Node.js==========#
 # ENV NODE_VERSION 17.7.0
@@ -163,8 +163,8 @@ CMD \
     #=====Start MySQL=====#
     \
     #=====Start PHP=====#
-    service php8.1-fpm start \
-    && \
+    # service php8.1-fpm start \
+    # && \
     #=====Start PHP=====#
     \
     #=====Start Apache=====#
