@@ -170,8 +170,8 @@ CMD \
     #=====Start PostgreSQL=====#
     \
     #=====Start MySQL=====#
-    # usermod -d /var/lib/mysql/ mysql && service mysql start \
-    # && \
+    usermod -d /var/lib/mysql/ mysql && service mysql start \
+    && \
     #=====Start MySQL=====#
     \
     #=====Start PHP=====#
