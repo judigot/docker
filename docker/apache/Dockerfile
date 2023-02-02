@@ -1,4 +1,7 @@
-FROM php:8.0-apache
+# Latest version
+FROM php:apache
+
+# FROM php:8.0-apache
 
 RUN apt update && apt install -y \
     # Install Git
