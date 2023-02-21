@@ -13,7 +13,10 @@ services:
       - 5000:5000
       - 3000:3000
     volumes:
+      - ./app/node.js/webpack:/var/jenkins_home/app/webpack
       - jenkins-data:/var/jenkins_home
+    environment:
+      - JAVA_OPTS="-Dhudson.plugins.git.GitSCM.ALLOW_LOCAL_CHECKOUT=true" # Allow Jenkins to build local folders with a Jenkins file
 
 volumes:
   jenkins-data:
