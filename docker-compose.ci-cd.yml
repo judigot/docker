@@ -1,0 +1,19 @@
+version: "3.9"
+
+name: CI/CD
+
+services:
+  jenkins:
+    # 2.347
+    image: jenkins/jenkins:lts
+    container_name: Jenkins
+    restart: always
+    ports:
+      - 8080:8080
+      - 5000:5000
+      - 3000:3000
+    volumes:
+      - jenkins-data:/var/jenkins_home
+
+volumes:
+  jenkins-data:

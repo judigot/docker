@@ -1,45 +1,8 @@
 version: "3.9"
 
-name: development-environment
+name: Development
 
 services:
-
-  # python:
-  #   build:
-  #     context: ./docker/python
-  #     dockerfile: Dockerfile
-  #   container_name: Python
-  #   restart: always
-  #   ports:
-  #     - 8000:8000
-  #   volumes:
-  #     - ./app/python:/usr/app/src
-  # jenkins:
-  #   # 2.347
-  #   image: jenkins/jenkins:jdk11
-  #   container_name: Jenkins
-  #   restart: always
-  #   ports:
-  #     - 8080:8080
-  #     # - 5000:5000
-  #     - 3000:3000
-  #   volumes:
-  #     - jenkins-data:/var/jenkins_home
-  #   depends_on:
-  #     - mysql
-
-  phpmyadmin:
-    image: phpmyadmin
-    container_name: phpMyAdmin
-    restart: always
-    ports:
-      - 8081:80
-    environment:
-      PMA_HOST: "${PMA_HOST}"
-      PMA_USER: "${PMA_USER}"
-      PMA_PASSWORD: "${PMA_PASSWORD}"
-    depends_on:
-      - mysql
 
   php:
     container_name: PHP-Apache
@@ -54,87 +17,34 @@ services:
       # - ./app/php:/var/www/html/
       - D:/xampp/htdocs:/var/www/html/
       - ./docker/php/overrides.ini:/usr/local/etc/php/conf.d/overrides.ini
+  # node.js:
+  #   # image: node:alpine
+  #   container_name: Node.js
+  #   restart: always
+  #   build:
+  #     context: ./docker/node.js
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - 3000:3000
+  #     - 5000:5000
+  #   volumes:
+  #     - ./app/node.js:/app
+  #   tty: true # Keep the container "always running". Prevent <Container> exited with code 0 error
 
-  mysql:
-    image: mysql:latest
-    container_name: MySQL
-    restart: always
-    ports:
-      - 3306:3306
-    volumes:
-      # - ./data/mysql:/var/lib/mysql
-      - mysql-data:/var/lib/mysql # Linux is case sensitive, so table name cases should be consistent!
-    environment:
-      MYSQL_ALLOW_EMPTY_PASSWORD: "${MYSQL_ALLOW_EMPTY_PASSWORD}"
-      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
-
-  postgres:
-    image: postgres:alpine
-    container_name: PostgreSQL
-    restart: always
-    ports:
-      - 5432:5432
-    volumes:
-      # - ./data/postgres:/var/lib/postgresql/data
-      - postgres-data:/var/lib/postgresql/data # Linux is case sensitive, so table name cases should be consistent!
-    environment:
-      POSTGRES_USER: "${POSTGRES_USER}"
-      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
-
-volumes:
-  mysql-data:
-  postgres-data:
-  jenkins-data:
-
-    # node.js:
-    #   # image: node:alpine
-    #   container_name: Node.js
-    #   restart: always
-    #   build:
-    #     context: ./docker/node.js
-    #     dockerfile: Dockerfile
-    #   ports:
-    #     - 3000:3000
-    #     - 5000:5000
-    #   volumes:
-    #     - ./app/node.js:/app
-    #   tty: true # Keep the container "always running". Prevent <Container> exited with code 0 error
-
-    # Spring Boot
-    # java:
-    #   image: maven:3.8.5-jdk-8
-    #   container_name: Java-Maven
-    #   ports:
-    #     - 8080:8080
-    #   volumes:
-    #     - ./app/java/test:/usr/local/bin
-    #     - ./app/java/test/entrypoint.sh:/usr/local/bin/mvn-entrypoint.sh
-    #
-    #====================
-    # entrypoint.sh
-    # #!/bin/sh
-    # You can set anything you need here before starting the spring boot application
-    # cd /usr/local/bin
-    # mvn install
-    # mvn spring-boot:run
-    #====================
-
-    # git:
-    #   image: alpine
-    #   container_name: Git
-    #   build:
-    #     context: ./docker/git
-    #     dockerfile: Dockerfile
-    #   command: tail -F anything
-    #   volumes:
-    #     - ./app:/app
-
-    # adminer:
-    #   image: adminer
-    #   container_name: Adminer
-    #   restart: always
-    #   ports:
-    #     - 8080:8080
-    #   depends_on:
-    #     - mysql
-    #     - postgresql
+  # Spring Boot
+  # java:
+  #   image: maven:3.8.5-jdk-8
+  #   container_name: Java-Maven
+  #   ports:
+  #     - 8080:8080
+  #   volumes:
+  #     - ./app/java/test:/usr/local/bin
+  #     - ./app/java/test/entrypoint.sh:/usr/local/bin/mvn-entrypoint.sh
+  #====================
+  # entrypoint.sh
+  # #!/bin/sh
+  # You can set anything you need here before starting the spring boot application
+  # cd /usr/local/bin
+  # mvn install
+  # mvn spring-boot:run
+  #====================

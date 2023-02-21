@@ -1,0 +1,18 @@
+version: "3.9"
+
+name: Apps
+
+services:
+  node.js:
+    # image: node:alpine
+    container_name: Node.js
+    restart: always
+    build:
+      context: ./docker/node.js
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+      - 5000:5000
+    volumes:
+      - ./app/node.js:/app
+    tty: true # Keep the container "always running". Prevent <Container> exited with code 0 error
