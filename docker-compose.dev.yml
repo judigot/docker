@@ -15,7 +15,7 @@ services:
     volumes:
       # Serve app folder to the server
       # - ./app/php:/var/www/html/
-      - D:/xampp/htdocs:/var/www/html/
+      # - D:/xampp/htdocs:/var/www/html/
       - ./docker/php/overrides.ini:/usr/local/etc/php/conf.d/overrides.ini
   # node.js:
   #   # image: node:alpine
