@@ -1,0 +1,13 @@
+version: "3.9"
+
+name: Terraform
+
+services:
+  terraform:
+    image: hashicorp/terraform
+    container_name: Terraform
+    restart: always
+    build:
+      context: ./docker/terraform
+      dockerfile: Dockerfile
+    tty: true # Keep the container "always running". Prevent <Container> exited with code 0 error
