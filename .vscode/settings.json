@@ -1,4 +1,7 @@
 {
   "python.analysis.typeCheckingMode": "basic",
-  "npm.exclude": "**/app/**"
+  "npm.exclude": "**/app/**",
+  "files.exclude": {
+    "terraform/.terraform": true,
+  },
 }

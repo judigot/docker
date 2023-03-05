@@ -10,4 +10,8 @@ services:
     build:
       context: ./docker/terraform
       dockerfile: Dockerfile
+    volumes:
+      - ./terraform:/var/terraform
+      - ~/.aws:/root/.aws
+      - ~/.ssh:/root/.ssh
     tty: true # Keep the container "always running". Prevent <Container> exited with code 0 error
