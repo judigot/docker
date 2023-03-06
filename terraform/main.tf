@@ -80,12 +80,12 @@ resource "aws_security_group" "mtc_sg" {
 }
 
 resource "aws_key_pair" "mtc_auth" {
-  key_name   = "judigot"
-  public_key = file("~/.ssh/judigot.pub")
+  key_name   = var.ssh_key_name
+  public_key = file("~/.ssh/${var.ssh_key_name}.pub")
 }
 
 resource "aws_instance" "dev_node" {
-  instance_type = "t2.micro"
+  instance_type = var.instance_type
   ami           = data.aws_ami.server_ami.id
 
   # SSH Key
@@ -111,4 +111,16 @@ resource "aws_instance" "dev_node" {
   user_data = file("docker.tpl")
   #=====DOCKER=====#
   #==========PROJECT BOOTSTRAPPING==========#
+  
+  
+  # Run commands in the host machine after creating the instance
+  provisioner "local-exec" {
+    # Add EC2 instance to SSH configuration
+    command = templatefile("ssh-config-${var.host_os}.tpl", {
+      hostname     = self.public_ip,
+      user         = var.username,
+      identityfile = "~/.ssh/${var.ssh_key_name}"
+    })
+    interpreter = var.host_os == "linux" ? ["bash", "-c"] : ["Powershell", "-Command"]
+  }
 }
