@@ -4,15 +4,15 @@ name: Databases
 
 services:
 
-  adminer:
-    image: adminer
-    container_name: Adminer
-    restart: always
-    ports:
-      - 8080:8080
-    depends_on:
-      - mysql
-      - postgres
+  # adminer:
+  #   image: adminer
+  #   container_name: Adminer
+  #   restart: always
+  #   ports:
+  #     - 8080:8080
+  #   depends_on:
+  #     - mysql
+  #     - postgres
 
   phpmyadmin:
     image: phpmyadmin
@@ -26,20 +26,6 @@ services:
       PMA_PASSWORD: "${PMA_PASSWORD}"
     depends_on:
       - mysql
-
-  # php:
-  #   container_name: PHP-Apache
-  #   restart: always
-  #   build:
-  #     context: ./docker/apache
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - 80:80
-  #   volumes:
-  #     # Serve app folder to the server
-  #     # - ./app/php:/var/www/html/
-  #     - D:/xampp/htdocs:/var/www/html/
-  #     - ./docker/php/overrides.ini:/usr/local/etc/php/conf.d/overrides.ini
 
   mysql:
     image: mysql:latest
