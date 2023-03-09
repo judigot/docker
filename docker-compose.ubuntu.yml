@@ -21,6 +21,7 @@ services:
       # Serve app folder to the server
       # - ./app/node.js:/app
       # - ./app/php:/var/www/html
+      - ./config/letsencrypt:/etc/letsencrypt
       - ./config/nginx/conf.d/reverse-proxy.conf:/etc/nginx/conf.d/reverse-proxy.conf
       - ./config/nginx/conf.d/app1.conf:/etc/nginx/conf.d/app1.conf
       - ./config/nginx/conf.d/app2.conf:/etc/nginx/conf.d/app2.conf
