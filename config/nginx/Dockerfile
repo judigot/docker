@@ -4,7 +4,10 @@ FROM ubuntu:jammy
 EXPOSE 80
 EXPOSE 443
 
-# Remove boilerplate
+# Remove boilerplate: FROM ubuntu
+# RUN rm /var/www/html/*
+
+# Remove boilerplate: FROM nginx
 # RUN rm /usr/share/nginx/html/*
 
 RUN echo "Initializing Ubuntu..." && \
