@@ -4,7 +4,7 @@ name: Server
 
 services:
   nginx:
-    container_name: Nginx
+    container_name: nginx
     restart: always
     build:
       context: ./config/nginx
