@@ -10,10 +10,11 @@ services:
       context: ./config/nginx
       dockerfile: Dockerfile
     ports:
-      - 80:80
+      - 80:80 # http://
+      - 443:443 # https:// (SSL)
     volumes:
       - ./app/html:/usr/share/nginx
+      - ./config/letsencrypt:/etc/letsencrypt
       - ./config/nginx/conf.d/reverse-proxy.conf:/etc/nginx/conf.d/reverse-proxy.conf
       - ./config/nginx/conf.d/app1.conf:/etc/nginx/conf.d/app1.conf
       - ./config/nginx/conf.d/app2.conf:/etc/nginx/conf.d/app2.conf
-    tty: true # Keep the container "always running". Prevent <Container> exited with code 0 error
