@@ -14,6 +14,7 @@ services:
     ports:
       # - 81:81 # phpMyAdmin
       - 80:80 # PHP
+      - 443:443 # PHP
       # - 8080:8080 # Java
       # - 3000:3000 # Node.js
       # - 3306:3306 # MySQL
