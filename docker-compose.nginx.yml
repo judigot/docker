@@ -14,7 +14,7 @@ services:
       - 443:443 # https:// (SSL)
     volumes:
       # - ./app/html:/usr/share/nginx # FROM: nginx
-      - ./app/html:/var/www/html # FROM: ubuntu
+      - ./app/html:/var/www # FROM: ubuntu
       - ./config/letsencrypt:/etc/letsencrypt
       - ./config/nginx/conf.d/reverse-proxy.conf:/etc/nginx/conf.d/reverse-proxy.conf
       - ./config/nginx/conf.d/app1.conf:/etc/nginx/conf.d/app1.conf
