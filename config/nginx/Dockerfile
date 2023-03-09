@@ -30,16 +30,16 @@ RUN echo "Initializing Ubuntu..." && \
     && \
     echo "..."
 
-# #==========Nginx==========#
-RUN echo "Installing Nginx..." && \
+# #==========Cerbot & Nginx==========#
+RUN echo "Installing Cerbot & Nginx..." && \
     # Remove command line interactions
     DEBIAN_FRONTEND=noninteractive \
     apt install -y \
     #=====Packages=====#
-    nginx \
+    python3-certbot-nginx \
     #=====Packages=====#
     && \
     echo "..."
-# #==========Nginx==========#
+# #==========Cerbot & Nginx==========#
 
 CMD nginx -g "daemon off;"
