@@ -26,4 +26,17 @@ RUN echo "Initializing Ubuntu..." && \
     #==========Packages==========#
     && \
     echo "..."
+
+# #==========Nginx==========#
+RUN echo "Installing Nginx..." && \
+    # Remove command line interactions
+    DEBIAN_FRONTEND=noninteractive \
+    apt install -y \
+    #=====Packages=====#
+    nginx \
+    #=====Packages=====#
+    && \
+    echo "..."
+# #==========Nginx==========#
+
 CMD nginx -g "daemon off;"
