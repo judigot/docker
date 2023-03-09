@@ -7,13 +7,13 @@ services:
     container_name: Nginx
     restart: always
     build:
-      context: ./docker/nginx
+      context: ./config/nginx
       dockerfile: Dockerfile
     ports:
       - 80:80
     volumes:
       - ./app/html:/usr/share/nginx
-      - ./docker/nginx/conf.d/reverse-proxy.conf:/etc/nginx/conf.d/reverse-proxy.conf
-      - ./docker/nginx/conf.d/app1.conf:/etc/nginx/conf.d/app1.conf
-      - ./docker/nginx/conf.d/app2.conf:/etc/nginx/conf.d/app2.conf
+      - ./config/nginx/conf.d/reverse-proxy.conf:/etc/nginx/conf.d/reverse-proxy.conf
+      - ./config/nginx/conf.d/app1.conf:/etc/nginx/conf.d/app1.conf
+      - ./config/nginx/conf.d/app2.conf:/etc/nginx/conf.d/app2.conf
     tty: true # Keep the container "always running". Prevent <Container> exited with code 0 error

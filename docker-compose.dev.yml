@@ -8,7 +8,7 @@ services:
     container_name: PHP-Apache
     restart: always
     build:
-      context: ./docker/apache2
+      context: ./config/apache2
       dockerfile: Dockerfile
     ports:
       - 81:80
@@ -16,13 +16,13 @@ services:
       # Serve app folder to the server
       - ./app/php:/var/www/html/
       # - D:/xampp/htdocs:/var/www/html/
-      - ./docker/php/overrides.ini:/usr/local/etc/php/conf.d/overrides.ini
+      - ./config/php/overrides.ini:/usr/local/etc/php/conf.d/overrides.ini
   # node.js:
   #   # image: node:alpine
   #   container_name: Node.js
   #   restart: always
   #   build:
-  #     context: ./docker/node.js
+  #     context: ./config/node.js
   #     dockerfile: Dockerfile
   #   ports:
   #     - 3000:3000

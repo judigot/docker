@@ -8,7 +8,7 @@ services:
     container_name: Terraform
     restart: always
     build:
-      context: ./docker/terraform
+      context: ./config/terraform
       dockerfile: Dockerfile
     volumes:
       - ./terraform:/var/terraform
