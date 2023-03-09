@@ -8,6 +8,7 @@ app/java/*
 app/php/*
 app/python/*
 
+# Ignored to avoid deleting SSL certificates on git stash -u
 config/letsencrypt
 
 terraform/.terraform
