@@ -8,6 +8,8 @@ app/java/*
 app/php/*
 app/python/*
 
+config/letsencrypt
+
 terraform/.terraform
 # .tfstate files
 *.tfstate
