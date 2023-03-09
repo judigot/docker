@@ -1,4 +1,5 @@
-FROM ubuntu
+# FROM ubuntu
+FROM ubuntu:jammy
 
 # -y to answer "Yes" to all promts
 
@@ -39,18 +40,18 @@ RUN echo "Installing Git..." && \
 #==========Git==========#
 
 #==========MySQL==========#
-RUN echo "Installing MySQL..." && \
-    # Remove command line interactions
-    DEBIAN_FRONTEND=noninteractive \
-    apt install -y \
-    #=====Packages=====#
-    mysql-server \
-    #=====Packages=====#
-    && \
-    usermod -d /var/lib/mysql/ mysql && service mysql start; \
-    echo "..."
-EXPOSE 3306/tcp
-EXPOSE 33060/tcp
+# RUN echo "Installing MySQL..." && \
+#     # Remove command line interactions
+#     DEBIAN_FRONTEND=noninteractive \
+#     apt install -y \
+#     #=====Packages=====#
+#     mysql-server \
+#     #=====Packages=====#
+#     && \
+#     usermod -d /var/lib/mysql/ mysql && service mysql start; \
+#     echo "..."
+# EXPOSE 3306/tcp
+# EXPOSE 33060/tcp
 #==========Git==========#
 
 # #==========Apache==========#
@@ -66,15 +67,15 @@ EXPOSE 33060/tcp
 # #==========Apache==========#
 
 # #==========Nginx==========#
-# RUN echo "Installing Nginx..." && \
-#     # Remove command line interactions
-#     DEBIAN_FRONTEND=noninteractive \
-#     apt install -y \
-#     #=====Packages=====#
-#     nginx \
-#     #=====Packages=====#
-#     && \
-#     echo "..."
+RUN echo "Installing Nginx..." && \
+    # Remove command line interactions
+    DEBIAN_FRONTEND=noninteractive \
+    apt install -y \
+    #=====Packages=====#
+    nginx \
+    #=====Packages=====#
+    && \
+    echo "..."
 # #==========Nginx==========#
 
 # #==========Install PHP & PHP Extensions==========#
@@ -151,9 +152,9 @@ EXPOSE 33060/tcp
 
 # ENV NODE_VERSION node
 
-RUN echo "Installing NVM & Node.js...";\
-    export NODE_VERSION=node;\
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash;
+# RUN echo "Installing NVM & Node.js...";\
+#     export NODE_VERSION=node;\
+#     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash;
 # RUN echo "Installing Node.js..." && \
 #     #=====OPTION 3=====#
 #     export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")";\
@@ -170,8 +171,8 @@ CMD \
     #=====Start PostgreSQL=====#
     \
     #=====Start MySQL=====#
-    usermod -d /var/lib/mysql/ mysql && service mysql start \
-    && \
+    # usermod -d /var/lib/mysql/ mysql && service mysql start \
+    # && \
     #=====Start MySQL=====#
     \
     #=====Start PHP=====#
@@ -185,7 +186,7 @@ CMD \
     #=====Start Apache=====#
     \
     #=====Start Nginx=====#
-    # nginx -g "daemon off;" \
+    nginx -g "daemon off;" \
     # && \
     #=====Start Nginx=====#
     \
@@ -195,4 +196,4 @@ CMD \
     #=====Start Jenkins=====#
     \
     #=====Keep Container Running=====#
-    sleep infinity
+    # sleep infinity
