@@ -1,0 +1,49 @@
+version: "3.9"
+
+name: salesmaster
+
+services:
+
+  phpmyadmin:
+    image: phpmyadmin
+    container_name: phpMyAdmin
+    restart: always
+    ports:
+      - 8081:80
+    environment:
+      PMA_HOST: "${PMA_HOST}"
+      PMA_USER: "${PMA_USER}"
+      PMA_PASSWORD: "${PMA_PASSWORD}"
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:latest
+    container_name: MySQL
+    restart: always
+    ports:
+      - 3306:3306
+    volumes:
+      # - ./data/mysql:/var/lib/mysql
+      - mysql-data:/var/lib/mysql # Linux is case sensitive, so table name cases should be consistent!
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "${MYSQL_ALLOW_EMPTY_PASSWORD}"
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+
+  php:
+    container_name: PHP-Apache
+    restart: always
+    build:
+      context: ./config/apache2
+      dockerfile: Dockerfile
+    ports:
+      - 81:80
+    volumes:
+      # Serve app folder to the server
+      - ./app/php:/var/www/html/
+      # - D:/xampp/htdocs:/var/www/html/
+      - ./config/php/overrides.ini:/usr/local/etc/php/conf.d/overrides.ini
+
+volumes:
+  mysql-data:
+  postgres-data:
