@@ -1,6 +1,6 @@
 version: "3.9"
 
-name: CI/CD
+name: ci/cd
 
 services:
   jenkins:
