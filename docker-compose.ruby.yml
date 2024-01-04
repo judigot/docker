@@ -1,0 +1,17 @@
+version: "3.9"
+
+name: ruby
+
+services:
+  ruby:
+    image: ruby:latest
+    container_name: Ruby
+    restart: always
+    # build:
+    #   context: ./config/terraform
+    #   dockerfile: Dockerfile
+    # volumes:
+      # - ./terraform:/var/terraform
+      # - ~/.aws:/root/.aws
+      # - ~/.ssh:/root/.ssh
+    tty: true # Keep the container "always running". Prevent <Container> exited with code 0 error
