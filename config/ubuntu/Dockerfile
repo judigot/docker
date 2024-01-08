@@ -100,7 +100,7 @@ RUN echo "Installing Nginx..." && \
 #     DEBIAN_FRONTEND=noninteractive \
 #     apt install -y \
 #     #=====Packages=====#
-#     openjdk-11-jre-headless \
+#     openjdk-21 \
 #     #=====Packages=====#
 #     && \
 #     echo "..."
