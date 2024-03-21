@@ -20,6 +20,8 @@ services:
     restart: always
     ports:
       - 8081:80
+    volumes:
+      - ./config/phpmyadmin/custom.ini:/usr/local/etc/php/conf.d/custom.ini # Linux is case sensitive, so table name cases should be consistent!
     environment:
       PMA_HOST: "${PMA_HOST}"
       PMA_USER: "${PMA_USER}"
