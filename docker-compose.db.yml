@@ -42,18 +42,18 @@ services:
       MYSQL_ALLOW_EMPTY_PASSWORD: "${MYSQL_ALLOW_EMPTY_PASSWORD}"
       MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
 
-  postgres:
-    image: postgres:alpine
-    container_name: PostgreSQL
-    restart: always
-    ports:
-      - 5432:5432
-    volumes:
-      # - ./data/postgres:/var/lib/postgresql/data
-      - postgres-data:/var/lib/postgresql/data # Linux is case sensitive, so table name cases should be consistent!
-    environment:
-      POSTGRES_USER: "${POSTGRES_USER}"
-      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+  # postgres:
+  #   image: postgres:alpine
+  #   container_name: PostgreSQL
+  #   restart: always
+  #   ports:
+  #     - 5432:5432
+  #   volumes:
+  #     # - ./data/postgres:/var/lib/postgresql/data
+  #     - postgres-data:/var/lib/postgresql/data # Linux is case sensitive, so table name cases should be consistent!
+  #   environment:
+  #     POSTGRES_USER: "${POSTGRES_USER}"
+  #     POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
 
 volumes:
   mysql-data:
