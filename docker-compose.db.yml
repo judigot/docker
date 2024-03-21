@@ -55,7 +55,7 @@ services:
       POSTGRES_USER: "${POSTGRES_USER}"
       POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
 
-      # Test
+      # Test2
 
 volumes:
   mysql-data:
