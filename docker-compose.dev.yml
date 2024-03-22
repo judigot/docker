@@ -11,7 +11,7 @@ services:
       context: ./config/apache2
       dockerfile: Dockerfile
     ports:
-      - 81:80
+      - 80:80
     volumes:
       # Serve app folder to the server
       - ./app/php:/var/www/html/
