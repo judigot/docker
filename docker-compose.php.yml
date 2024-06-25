@@ -1,0 +1,18 @@
+version: "3.9"
+
+name: development
+
+services:
+  php:
+    container_name: PHP-Apache
+    restart: always
+    build:
+      context: ./config/apache2
+      dockerfile: Dockerfile
+    ports:
+      - 80:80
+    volumes:
+      # Serve app folder to the server
+      - ./app/php:/var/www/html/
+      # - D:/xampp/htdocs:/var/www/html/
+      - ./config/php/overrides.ini:/usr/local/etc/php/conf.d/overrides.ini
