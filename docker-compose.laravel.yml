@@ -1,5 +1,3 @@
-version: "3.9"
-
 name: development
 
 services:
@@ -10,7 +8,16 @@ services:
       context: ./config/apache2
       dockerfile: Dockerfile
     ports:
-      - 80:80
+      - "8000:8000"
     volumes:
-      - ./config/php/overrides.ini:/usr/local/etc/php/conf.d/overrides.ini # Override PHP settings
-      - ./app/laravel/api:/var/www/html/ # Serve laravel app
+      - ./config/php/overrides.ini:/usr/local/etc/php/conf.d/overrides.ini
+      - ./app/laravel/api:/var/www/html
+    environment:
+      - APACHE_DOCUMENT_ROOT=/var/www/html/public
+    working_dir: /var/www/html
+    entrypoint: [ "/bin/sh", "-c" ]
+    command:
+      - |
+        echo 'Starting laravel app...'
+        composer install --no-interaction --optimize-autoloader
+        php artisan serve --host=0.0.0.0 --port=8000
