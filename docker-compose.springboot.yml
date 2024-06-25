@@ -1,0 +1,21 @@
+version: "3.9"
+
+name: development
+
+services:
+  java:
+    image: maven:3.8.5-jdk-8
+    container_name: Java-Maven
+    ports:
+      - 8080:8080
+    volumes:
+      - ./app/java/test:/usr/local/bin
+      - ./app/java/test/entrypoint.sh:/usr/local/bin/mvn-entrypoint.sh
+  # ====================
+  # entrypoint.sh
+  # #!/bin/sh
+  # You can set anything you need here before starting the spring boot application
+  # cd /usr/local/bin
+  # mvn install
+  # mvn spring-boot:run
+  # ====================
