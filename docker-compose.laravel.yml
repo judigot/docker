@@ -13,4 +13,4 @@ services:
       - 80:80
     volumes:
       - ./config/php/overrides.ini:/usr/local/etc/php/conf.d/overrides.ini # Override PHP settings
-      - ./app/php:/var/www/html/ # Serve app/php folder to the server
+      - ./app/laravel/api:/var/www/html/ # Serve laravel app

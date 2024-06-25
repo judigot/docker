@@ -6,6 +6,7 @@ Docker/mysql
 app/node.js/*
 app/java/*
 app/php/*
+app/laravel/*
 app/python/*
 
 # Ignored to avoid deleting SSL certificates on git stash -u
