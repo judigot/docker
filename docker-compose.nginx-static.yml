@@ -4,7 +4,7 @@ services:
   nginx:
     container_name: nginx
     restart: always
-    image: nginx:latest # Use the official nginx image
+    image: nginx:latest
     ports:
       - 80:80 # http://
       - 443:443 # https:// (SSL)
