@@ -1,0 +1,12 @@
+name: server
+
+services:
+  nginx:
+    container_name: nginx
+    restart: always
+    image: nginx:latest # Use the official nginx image
+    ports:
+      - 80:80 # http://
+      - 443:443 # https:// (SSL)
+    volumes:
+      - ./app/html/app1/:/usr/share/nginx/html
