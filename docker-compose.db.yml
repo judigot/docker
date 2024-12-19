@@ -1,7 +1,6 @@
 name: databases
 
 services:
-
   # adminer:
   #   image: adminer
   #   container_name: Adminer
@@ -53,18 +52,33 @@ services:
       POSTGRES_USER: "${MASTER_USERNAME}"
       POSTGRES_PASSWORD: "${MASTER_PASSWORD}"
 
+  # mssql:
+  #   image: mcr.microsoft.com/mssql/server:2022-latest
+  #   container_name: MSSQL
+  #   restart: always
+  #   ports:
+  #     - "1433:1433"
+  #   volumes:
+  #     - mssql-data:/var/opt/mssql
+  #   environment:
+  #     MSSQL_SA_PASSWORD: "${MSSQL_SA_PASSWORD}"
+  #     ACCEPT_EULA: "Y" # Accept the SQL Server End-User License Agreement
+  #     MSSQL_PID: "Developer" # Specify the SQL Server edition
+
   mssql:
-    image: mcr.microsoft.com/mssql/server:2022-latest
+    build:
+      context: ./config/mssql
+      dockerfile: Dockerfile
     container_name: MSSQL
     restart: always
     ports:
-      - 1433:1433
+      - "1433:1433"
     volumes:
       - mssql-data:/var/opt/mssql
     environment:
-      SA_PASSWORD: "${SA_PASSWORD}"
-      ACCEPT_EULA: "Y" # Accepts the license agreement
-      MSSQL_PID: "Express" # Use the Express edition (free)
+      MSSQL_SA_PASSWORD: "${MSSQL_SA_PASSWORD}"
+      ACCEPT_EULA: "Y" # Accept the SQL Server End-User License Agreement
+      MSSQL_PID: "Developer" # Specify the SQL Server edition
 
 volumes:
   mysql-data:
